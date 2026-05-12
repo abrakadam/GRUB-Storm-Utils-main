@@ -2,9 +2,13 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <dirent.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <signal.h>
+#include <pwd.h>
+#include <sys/types.h>
 
 // класс для получения информации о процессах
 class process_info {
@@ -18,6 +22,15 @@ public:
         std::string state;
         std::string command;
         int parent_pid;
+    };
+    
+    struct system_stats {
+        int total_processes;
+        int running_processes;
+        int sleeping_processes;
+        double total_cpu_usage;
+        unsigned long total_memory_mb;
+        unsigned long used_memory_mb;
     };
     
     // получить список всех процессов
@@ -165,22 +178,8 @@ public:
     }
     
     // получить системную статистику
-    static struct {
-        int total_processes;
-        int running_processes;
-        int sleeping_processes;
-        double total_cpu_usage;
-        unsigned long total_memory_mb;
-        unsigned long used_memory_mb;
-    } get_system_stats() {
-        struct {
-            int total_processes;
-            int running_processes;
-            int sleeping_processes;
-            double total_cpu_usage;
-            unsigned long total_memory_mb;
-            unsigned long used_memory_mb;
-        } stats = {0, 0, 0, 0.0, 0, 0};
+    static system_stats get_system_stats() {
+        system_stats stats = {0, 0, 0, 0.0, 0, 0};
         
         auto processes = get_all_processes();
         stats.total_processes = processes.size();

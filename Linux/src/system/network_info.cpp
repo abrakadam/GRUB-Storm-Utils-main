@@ -5,6 +5,9 @@
 #include <ifaddrs.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <sys/socket.h>
+#include <net/if.h>
+#include <sys/statvfs.h>
 
 // класс для получения информации о сети
 class network_info {

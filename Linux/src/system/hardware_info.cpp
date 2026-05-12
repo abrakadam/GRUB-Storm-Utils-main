@@ -2,6 +2,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <thread>
+#include <sys/statvfs.h>
+#include <cstdlib>
+#include <cstdio>
+#include <sys/sysinfo.h>
 
 // класс для получения информации о железе
 class hardware_info {
