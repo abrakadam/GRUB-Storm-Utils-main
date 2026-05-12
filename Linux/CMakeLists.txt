@@ -14,8 +14,17 @@ pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 add_executable(GRUBStormUtils
     src/main/main_gtk.cpp         # точка входа (gtk3-версия)
     src/core/grub_manager.cpp     # ядро управления grub
+    src/core/grub_backup.cpp      # управление резервными копиями
+    src/core/grub_theme.cpp       # управление темами
+    src/core/grub_validator.cpp   # валидация конфигурации
     src/ui/ui_gtk.cpp             # графический интерфейс gtk3
+    src/ui/ui_theme_editor.cpp    # редактор тем
+    src/ui/ui_status_bar.cpp      # статус-бар
+    src/ui/ui_console.cpp         # консольный виджет
     src/system/system_info.cpp    # сбор информации о системе
+    src/system/hardware_info.cpp  # информация о железе
+    src/system/network_info.cpp   # информация о сети
+    src/system/process_info.cpp   # информация о процессах
 )
 
 target_include_directories(GRUBStormUtils PRIVATE ${GTK3_INCLUDE_DIRS})
