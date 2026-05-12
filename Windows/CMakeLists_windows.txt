@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.10)
+project(GRUBStormUtils-Windows VERSION 1.0.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# подключаем папку с заголовочными файлами
+include_directories(include)
+
+add_executable(GRUBStormUtils
+    src/main_windows.cpp
+)
+
+# на windows линкуем стандартные библиотеки
+if(WIN32)
+    target_link_libraries(GRUBStormUtils kernel32 user32 shell32)
+endif()
+
+install(TARGETS GRUBStormUtils DESTINATION bin)

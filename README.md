@@ -82,45 +82,116 @@
 - **Linux**: Полная функциональность с GTK3
 - **Windows**: Требуется GTK3 для Windows (ограниченная функциональность)
 
-## Сборка
+## Установка
 
-### Linux
+### Linux (Автоматическая установка)
+
+**Универсальный установщик для всех дистрибутивов:**
 
 ```bash
-# Установка зависимостей
-sudo apt-get install libgtk-3-dev
+# Скачайте и распакуйте архив
+cd GRUB-Storm-Utils-main/Linux
 
-# Сборка
-mkdir build
-cd build
-cmake ..
-make
-sudo make install
+# Запустите установочный скрипт
+./install.sh
+
+# Для удаления программы
+./install.sh uninstall
+```
+
+**Поддерживаемые дистрибутивы:**
+- Ubuntu/Debian/Linux Mint (apt-get)
+- Fedora/CentOS/RHEL (dnf/yum)
+- Arch Linux/Manjaro (pacman)
+- openSUSE (zypper)
+- Gentoo (emerge)
+
+### Linux (Ручная установка)
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get update
+sudo apt-get install build-essential cmake pkg-config
+mkdir build && cd build
+g++ -o GRUBStormUniversal ../src/universal_main.cpp
+sudo cp GRUBStormUniversal /usr/local/bin/grub-storm
+```
+
+**Fedora/CentOS:**
+```bash
+sudo dnf install gcc-c++ cmake pkg-config
+mkdir build && cd build
+g++ -o GRUBStormUniversal ../src/universal_main.cpp
+sudo cp GRUBStormUniversal /usr/local/bin/grub-storm
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S base-devel cmake pkgconf
+mkdir build && cd build
+g++ -o GRUBStormUniversal ../src/universal_main.cpp
+sudo cp GRUBStormUniversal /usr/local/bin/grub-storm
 ```
 
 ### Windows
 
-Требуется установка GTK3 для Windows:
+**Скомпилированная версия:**
 ```bash
-# Скачайте GTK3 с https://gtk.org/download-windows.php
-# Установите и настройте переменные окружения
-mkdir build
-cd build
-cmake ..
-cmake --build .
+# Скачайте GRUBStormUtils.exe из releases
+# Запустите двойным кликом
+```
+
+**Сборка из исходников:**
+```bash
+# Установите MS Visual Studio или MinGW
+# Скачайте GTK3 для Windows с https://gtk.org/download-windows.php
+mkdir build && cd build
+cmake .. -G "Visual Studio 16 2019"
+cmake --build . --config Release
 ```
 
 ## Использование
 
 ### Linux
 
-Запустите программу с правами root для полной функциональности:
-
+**Универсальная версия (рекомендуется):**
 ```bash
-sudo ./GRUBStormUtils
+# Запуск с правами root (полная функциональность)
+sudo grub-storm
+
+# Запуск без прав (ограниченная функциональность)
+grub-storm
+
+# Прямой запуск
+./build/GRUBStormUniversal
 ```
 
-Без sudo можно использовать только безопасный режим для чтения конфигурации.
+**Доступные версии:**
+1. **GRUBStormUniversal** - Универсальная версия с автоопределением GUI
+2. **GRUBStormGUI** - Графическая версия (требует Zenity)
+3. **GRUBStormGTK** - GTK3 версия (требует libgtk-3-dev)
+4. **GRUBStormUtils** - Текстовая версия
+
+**Автоматическое определение интерфейса:**
+- Если есть Zenity → Графический интерфейс
+- Если есть Dialog → Текстовый GUI
+- Иначе → Текстовый режим
+
+### Windows
+
+**Запуск программы:**
+```bash
+# Через командную строку
+GRUBStormUtils.exe
+
+# Через проводник
+Двойной клик по GRUBStormUtils.exe
+```
+
+**Требования:**
+- Windows 10/11
+- GTK3 библиотеки (включены в сборку)
+- Права администратора для полного функционала
 
 ### Интерфейс
 

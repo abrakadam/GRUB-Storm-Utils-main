@@ -1,8 +1,5 @@
-build/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
 *.o
-*.exe
-GRUBStormUtils
